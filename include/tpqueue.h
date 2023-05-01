@@ -1,16 +1,17 @@
 // Copyright 2022 NNTU-CS
 #ifndef INCLUDE_TPQUEUE_H_
 #define INCLUDE_TPQUEUE_H_
+#include <string>
 
 template<typename T>
 class TPQueue {
-private:
+ private:
     struct Node {
         T val;
         Node* next;
     };
     Node* header;
-public:
+ public:
     TPQueue() : header(nullptr) {}
     T pop();
     void push(const T& res);
@@ -22,16 +23,14 @@ void TPQueue<T>::push(const T& res) {
         str->val = res;
         str->next = NULL;
         header = str;
-    }
-    else {
+    } else {
         Node* c1 = header;
         Node* c2 = new Node;
         int n = 0;
         while (c1) {
             if (c1->val.prior < res.prior) {
                 break;
-            }
-            else {
+            } else {
                 c1 = c1->next;
                 n++;
             }
@@ -40,8 +39,7 @@ void TPQueue<T>::push(const T& res) {
             c2->next = header;
             c2->val = res;
             header = c2;
-        }
-        else {
+        } else {
             c1 = header;
             for (int i = 1; i < n; i++) {
                 c1 = c1->next;
@@ -56,8 +54,7 @@ template<typename T>
 T TPQueue<T>::pop() {
     if (header == NULL) {
         throw std::string("!!!");
-    }
-    else {
+    } else {
         T res = header->val;
         Node* c = header->next;
         delete header;
